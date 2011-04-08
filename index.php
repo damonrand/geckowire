@@ -97,15 +97,15 @@ else
 <root>
 <item>
 <value>
-<?php echo $startbalance ?>
+<?php echo round($startbalance) ?>
 </value>
-<text></text>
+<text>Starting balance</text>
 </item>
 <item>
 <value>
-<?php echo $closebalance ?>
+<?php echo round($closebalance) ?>
 </value>
-<text></text>
+<text>Closing balance</text>
 </item>
 </root>
 <?php 
