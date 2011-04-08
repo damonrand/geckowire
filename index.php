@@ -20,7 +20,6 @@ if (!isset($_REQUEST['secret']))
 }
 
 ?>
-
 <?php
 
 include_once "xero.php";
@@ -59,7 +58,6 @@ if (isset($_REQUEST['format']) &&  $_REQUEST['format'] == 'geckoboard')
 	$ashtml = false;
 
 ?>
-
 <?php
 if ($ashtml)
 {
@@ -95,6 +93,7 @@ if ($ashtml)
 else
 {
 ?>
+<?php echo "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n" ; ?>
 <root>
 <item>
 <value>
