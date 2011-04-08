@@ -54,7 +54,8 @@ if($bankindex > count($myarr["Reports"]["Report"]["Rows"]["Row"][1]["Rows"]["Row
 }
 
 $ashtml = true;
-if (isset($_REQUEST['format']) &&  $_REQUEST['format'] == 'geckoboard')
+// Format 1 means Geckoboard xml
+if (isset($_REQUEST['format']) &&  $_REQUEST['format'] == '1')
 	$ashtml = false;
 
 ?>
