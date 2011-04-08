@@ -8,7 +8,7 @@
  * 
  * parameters:
  * debug=anythign   			Show the Xero objects 
- * format=html|geckoboard    	What are you outputing to?
+ * format=1    					What are you outputing to? 1 means Geckoboard xml. Nothing else is supported so far.
  * bankindex=0..n   			Which bank account do you want to see? Defaults to 0
  * 
  */
@@ -49,8 +49,8 @@ if($bankindex > count($myarr["Reports"]["Report"]["Rows"]["Row"][1]["Rows"]["Row
 	echo "Error with bankindex";
 	exit();
 }else{
-	$startbalance = $myarr["Reports"]["Report"]["Rows"]["Row"][1]["Rows"]["Row"][$bankindex]["Cells"]["Cell"][1]["Value"];
-	$closebalance = $myarr["Reports"]["Report"]["Rows"]["Row"][1]["Rows"]["Row"][$bankindex]["Cells"]["Cell"][4]["Value"];
+	$startbalance = $myarr["Reports"]["Report"]["Rows"]["Row"][1]["Rows"]["Row"][$bankindex]["Cells"]["Cell"][4]["Value"];
+	$closebalance = $myarr["Reports"]["Report"]["Rows"]["Row"][1]["Rows"]["Row"][$bankindex]["Cells"]["Cell"][1]["Value"];
 }
 
 $ashtml = true;
