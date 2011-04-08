@@ -7,17 +7,25 @@
  * My first PHP app, sorry for the lack of MVC!
  * 
  * parameters:
- * debug=anythign   			Show the Xero objects 
+ * debug=anything   			Show the Xero objects 
  * format=1    					What are you outputing to? 1 means Geckoboard xml. Nothing else is supported so far.
  * bankindex=0..n   			Which bank account do you want to see? Defaults to 0
+ * includefx=anything			Add 1 to closing balance cause there is an extra column for fx gain
  * 
  */
 
-if (!isset($_REQUEST['secret']))
+if (!isset($_REQUEST['key']))
 {
-	echo "You must specify 'secret. See api.xero.com'";	
+	echo "You must specify 'key'. See api.xero.com";	
 	exit();	
 }
+
+if (!isset($_REQUEST['secret']))
+{
+	echo "You must specify 'secret'. See api.xero.com";	
+	exit();	
+}
+
 
 ?>
 <?php
@@ -25,7 +33,7 @@ if (!isset($_REQUEST['secret']))
 include_once "xero.php";
 
 //define your application key and secret (find these at https://api.xero.com/Application)
-define('XERO_KEY','YTU2ZJG2ZGFKZMVHNDNJZGIZZJY1OG');
+define('XERO_KEY',$_REQUEST['key']);
 define('XERO_SECRET',$_REQUEST['secret']);
 
 //instantiate the Xero class with your key, secret and paths to your RSA cert and key
@@ -39,8 +47,12 @@ $result = $xero->reports_banksummary();
 $myarr = json_decode(json_encode($result), true, 512);
 
 $bankindex = 0;
-if ($_REQUEST['bankindex'])
-$bankindex = $_REQUEST['bankindex'];
+if (isset($_REQUEST['bankindex']))
+	$bankindex = $_REQUEST['bankindex'];
+
+$closingindex=4;
+if (isset($_REQUEST['includefx']))
+	$closingindex=5;
 
 $startbalance=0;
 $closebalance=0;
@@ -49,8 +61,8 @@ if($bankindex > count($myarr["Reports"]["Report"]["Rows"]["Row"][1]["Rows"]["Row
 	echo "Error with bankindex";
 	exit();
 }else{
-	$startbalance = $myarr["Reports"]["Report"]["Rows"]["Row"][1]["Rows"]["Row"][$bankindex]["Cells"]["Cell"][4]["Value"];
-	$closebalance = $myarr["Reports"]["Report"]["Rows"]["Row"][1]["Rows"]["Row"][$bankindex]["Cells"]["Cell"][1]["Value"];
+	$startbalance = $myarr["Reports"]["Report"]["Rows"]["Row"][1]["Rows"]["Row"][$bankindex]["Cells"]["Cell"][1]["Value"];
+	$closebalance = $myarr["Reports"]["Report"]["Rows"]["Row"][1]["Rows"]["Row"][$bankindex]["Cells"]["Cell"][$closingindex]["Value"];
 }
 
 $ashtml = true;
