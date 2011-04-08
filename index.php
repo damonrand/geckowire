@@ -96,15 +96,11 @@ else
 <?php echo "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n" ; ?>
 <root>
 <item>
-<value>
-<?php echo round($startbalance) ?>
-</value>
+<value><?php echo round($startbalance) ?></value>
 <text>Starting balance</text>
 </item>
 <item>
-<value>
-<?php echo round($closebalance) ?>
-</value>
+<value><?php echo round($closebalance) ?></value>
 <text>Closing balance</text>
 </item>
 </root>
